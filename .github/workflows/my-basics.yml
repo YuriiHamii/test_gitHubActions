@@ -28,7 +28,7 @@ jobs:
   # This workflow contains a single job called "build"
   my-testing:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latestxx
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
