@@ -46,6 +46,10 @@ jobs:
           echo Hello message 2
           echo "Application name : ${{ env.APPLICATION_NAME }}"
 
+      # Runs a command - list
+      - name: List current in folder
+        run: ls -la
+
   my-deploy:
     runs-on: ubuntu-latest
     # code runs in sequence
