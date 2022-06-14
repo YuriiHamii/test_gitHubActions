@@ -32,7 +32,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it - Git clone repo
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
@@ -64,3 +64,14 @@ jobs:
 
       - name: Print Deployment Package
         run: echo "Deploy package name is ${{ env.DEPLOY_PACKAGE_NAME }}"
+
+      # Check aws version package
+      - name : Lets check some package - aws
+        run  : aws --version 
+
+      - name : Lets check some package - zip
+        run  : zip 
+        
+        
+        
+        
