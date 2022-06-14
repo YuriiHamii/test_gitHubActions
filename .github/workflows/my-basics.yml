@@ -54,13 +54,27 @@ jobs:
     runs-on: ubuntu-latest
     # code runs in sequence
     needs: [my-testing]
-
+    # local environment
+    env:
+      VAR1 : "This is job level Variable 1"
+      VAR2 : "This is job level Variable 2"
+    
     steps:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script - print hello message in Deploy
         run: |
           echo Add other actions to deploy - string 1,
           echo print hello message in Deploy - string 2.
+
+      # Locale variable - print environment variable
+      - name: Print environment variable
+        run: |
+          echo "Var1 = ${{ env.VAR1 }}"
+          echo "Var2 = ${{ env.VAR2 }}"
+          echo "Var3 = $LOCAL_VAR"
+        env:
+          LOCAL_VAR : "This is local Envuironment variable for only this place"
+
 
       - name: Print Deployment Package
         run: echo "Deploy package name is ${{ env.DEPLOY_PACKAGE_NAME }}"
@@ -70,7 +84,7 @@ jobs:
         run  : aws --version 
 
       - name : Lets check some package - zip
-        run  : zip 
+        run  : zip --version
         
         
         
