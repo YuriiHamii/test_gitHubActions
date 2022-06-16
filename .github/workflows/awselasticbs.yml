@@ -6,7 +6,7 @@ env :
   EB_APPLICATION_NAME       : "GitHubActionFlaskBlogDeploy"
   EB_ENVIRONMENT_NAME       : "GitHubActionFlaskBlogDeploy-env"
   DEPLOY_PACKAGE_NAME       : "flask_blogdeploy_app_${{ github.sha }}.zip"
-  AWS_REGION_NAME           : "us-east-1"
+  AWS_REGION_NAME           : "eu-central-1"
   
   
 # Controls when the workflow will run
