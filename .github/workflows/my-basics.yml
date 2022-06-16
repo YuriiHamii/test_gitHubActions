@@ -1,0 +1,91 @@
+# ------------------------------------
+# GitHub Actions Part-1 - Basics
+#
+# Copyleft (c) by Yurii Hamii 2022
+# ------------------------------------
+
+
+# This is a basic workflow to help you get started with Actions
+
+name: My-GitHubActions-Basics
+env: 
+  APPLICATION_NAME       : "BlogDeploy"
+  DEPLOY_PACKAGE_NAME    : "flask-deploy-ver-${{ github.sha }}"
+
+# Controls when the workflow will run
+on: 
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  my-testing:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it - Git clone repo
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script - print hello message in Testing
+        run: echo print hello message in Testing!
+
+      # Runs a two command using the runners shell - execure few commands
+      - name: Execure few commands
+        run: |
+          echo Hello message 1
+          echo Hello message 2
+          echo "Application name : ${{ env.APPLICATION_NAME }}"
+
+      # Runs a command - list
+      - name: List current in folder
+        run: ls -la
+
+  my-deploy:
+    runs-on: ubuntu-latest
+    # code runs in sequence
+    needs: [my-testing]
+    # local environment
+    env:
+      VAR1 : "This is job level Variable 1"
+      VAR2 : "This is job level Variable 2"
+    
+    steps:
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script - print hello message in Deploy
+        run: |
+          echo Add other actions to deploy - string 1,
+          echo print hello message in Deploy - string 2.
+
+      # Locale variable - print environment variable
+      - name: Print environment variable
+        run: |
+          echo "Var1 = ${{ env.VAR1 }}"
+          echo "Var2 = ${{ env.VAR2 }}"
+          echo "Var3 = $LOCAL_VAR"
+        env:
+          LOCAL_VAR : "This is local Envuironment variable for only this place"
+
+
+      - name: Print Deployment Package
+        run: echo "Deploy package name is ${{ env.DEPLOY_PACKAGE_NAME }}"
+
+      # Check aws version package
+      - name : Lets check some package - aws
+        run  : aws --version 
+
+      - name : Lets check some package - zip
+        run  : zip --version
+        
+        
+        
+        
