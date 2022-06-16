@@ -3,11 +3,10 @@
 name: CI-CD-pipeline-to-AWS-ElasticBeanstalk
 env :
   EB_PACKAGE_S3_BUCKET_NAME : "githab-actions-flask-blogdeploy"
-  EB_APPLICATION_NAME       : "GitHubActionFlaskBlogDeploy"
-  EB_ENVIRONMENT_NAME       : "GitHubActionFlaskBlogDeploy-env"
+  EB_APPLICATION_NAME       : "GitHubActionsFlaskBlogDeploy"
+  EB_ENVIRONMENT_NAME       : "GitHubActionsFlaskBlogDeploy-env"
   DEPLOY_PACKAGE_NAME       : "flask_blogdeploy_app_${{ github.sha }}.zip"
   AWS_REGION_NAME           : "eu-central-1"
-  AWS_REGION_NAME_ELBS      : "us-east-1"
   
 # Controls when the workflow will run
 on:
@@ -61,7 +60,7 @@ jobs:
         with:
           aws-access-key-id     : ${{ secrets.MY_AWS_ACCESS_KEY }}
           aws-secret-access-key : ${{ secrets.MY_AWS_SECRET_KEY }}
-          aws-region            : ${{ env.AWS_REGION_NAME_ELBS }}
+          aws-region            : ${{ env.AWS_REGION_NAME }}
           
 
       - name: Create new ElasticBeanstalk Application Version
