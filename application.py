@@ -15,15 +15,15 @@ SECRET_KEY = 'fdgfh78@#5?>gfhf89dx,v06k'
 MAX_CONTENT_LENGTH = 1024 * 1024
 
 
-app = Flask(__name__)
-app.config.from_object(__name__)
-app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flsite.db')))
+application = Flask(__name__)
+application.config.from_object(__name__)
+application.config.update(dict(DATABASE=os.path.join(application.root_path, 'flsite.db')))
 
 
-app.register_blueprint(admin, url_prefix='/admin')
+application.register_blueprint(admin, url_prefix='/admin')
 
 
-login_manager = (app)
+login_manager = (application)
 
 
 login_manager.login_view = 'login'
@@ -37,14 +37,14 @@ def load_user(user_id):
     return UserLogin().fromDB(user_id, dbase)
 
 def connect_db():
-    conn = sqlite3.connect(app.config['DATABASE'])
+    conn = sqlite3.connect(application.config['DATABASE'])
     conn.row_factory = sqlite3.Row
     return conn
 
 def create_db():
     """Helper function for creating database tables"""
     db = connect_db()
-    with app.open_resource('sq_db.sql', mode='r') as f:
+    with application.open_resource('sq_db.sql', mode='r') as f:
         db.cursor().executescript(f.read())
     db.commit()
     db.close()
@@ -57,7 +57,7 @@ def get_db():
 
 
 dbase = None
-@app.before_request
+@application.before_request
 def before_request():
     """Establishing a database connection before executing a query"""
     global dbase
@@ -65,7 +65,7 @@ def before_request():
     dbase = FDataBase(db)
 
 
-@app.teardown_appcontext
+@application.teardown_appcontext
 def close_db(error):
     """Close the connection to the database if it was established"""
     if hasattr(g, 'link_db'):
@@ -73,14 +73,14 @@ def close_db(error):
 
 
 
-@app.route("/")
+@application.route("/")
 def index():
  
     return render_template('index.html', menu = dbase.getMenu(), posts=dbase.getPostsAnonce())
 
 
 
-@app.route("/add_post", methods=["POST", "GET"])
+@application.route("/add_post", methods=["POST", "GET"])
 def addPost():
 
     if request.method == "POST":
@@ -96,7 +96,7 @@ def addPost():
     return render_template('addpost.html', menu=dbase.getMenu(), title="Add post")
 
 
-@app.route("/post/<alias>")
+@application.route("/post/<alias>")
 @login_required
 def showPost(alias):
     title, post = dbase.getPost(alias)
@@ -105,7 +105,7 @@ def showPost(alias):
     return render_template('post.html', menu=dbase.getMenu(), title=title, post=post)
 
 
-@app.route("/login", methods=["POST", "GET"])
+@application.route("/login", methods=["POST", "GET"])
 def login():
 
     if current_user.is_authenticated:
@@ -127,7 +127,7 @@ def login():
     return render_template("login.html", menu=dbase.getMenu(), title="Authorization", form=form)
 
 
-@app.route('/register', methods=["POST", "GET"])
+@application.route('/register', methods=["POST", "GET"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
@@ -145,7 +145,7 @@ def register():
     return render_template("register.html", menu=dbase.getMenu(), title="Registration", form=form)
 
 
-@app.route('/logout')
+@application.route('/logout')
 @login_required
 def logout():
     logout_user()
@@ -153,16 +153,16 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/profile')
+@application.route('/profile')
 @login_required
 def profile():
     return render_template("profile.html", menu=dbase.getMenu(), title="Account")
 
 
-@app.route('/userava')
+@application.route('/userava')
 @login_required
 def userava():
-    img = current_user.getAvatar(app)
+    img = current_user.getAvatar(application)
     if not img:
         return ""
 
@@ -171,7 +171,7 @@ def userava():
     return h
 
 
-@app.route('/upload', methods=["POST", "GET"])
+@application.route('/upload', methods=["POST", "GET"])
 @login_required
 def upload():
     if request.method == 'POST':
@@ -192,8 +192,8 @@ def upload():
 
 
 if __name__ == "__main__":
-    app.debug = True  
-    app.run(host='0.0.0.0', host='127.0.0.1')
-    # application.run(host='0.0.0.0', host='18.156.79.11', host='172.31.26.211' port=5000, port=127.0.0.1)
+    # app.debug = True  
+    application.run()
+    
 
 
