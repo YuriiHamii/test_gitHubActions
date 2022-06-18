@@ -22,11 +22,11 @@ class UserLogin(UserMixin):
     def getEmail(self):
         return self.__user['email'] if self.__user else "No email"
 
-    def getAvatar(self, app):
+    def getAvatar(self, application):
         img = None
         if not self.__user['avatar']:
             try:
-                with app.open_resource(app.root_path + url_for('static', filename='images/default.png'), "rb") as f:
+                with application.open_resource(application.root_path + url_for('static', filename='images/default.png'), "rb") as f:
                     img = f.read()
             except FileNotFoundError as e:
                 print("Avatar not found by default: " + str(e))
