@@ -1,21 +1,22 @@
 from flask import Flask
 
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 
 
 
 
-@app.route("/index")
-@app.route("/")
+@application.route("/index")
+@application.route("/")
 def index():
     return "index"
 
-@app.route("/about")
+@application.route("/about")
 def about():
-    return "<h1> О сайте </h1>"
+    return "<h1> About website BlogDeploy </h1>"
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    application.debug = True
+    application.run()
