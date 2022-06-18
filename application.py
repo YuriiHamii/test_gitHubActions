@@ -23,7 +23,7 @@ application.config.update(dict(DATABASE=os.path.join(application.root_path, 'fls
 application.register_blueprint(admin, url_prefix='/admin')
 
 
-login_manager = LoginManager(application)
+login_manager = (application)
 
 
 login_manager.login_view = 'login'
@@ -193,7 +193,7 @@ def upload():
 
 if __name__ == "__main__":
     application.debug = True  
-    application.run(host='0.0.0.0')
+    application.run(host='127.0.0.1')
     # application.run(host='0.0.0.0', host='18.156.79.11', host='172.31.26.211' port=5000, port=127.0.0.1)
 
 
