@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request, flash, redirect, url_for, abort, g, make_response
 from FDataBase import FDataBase
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+#from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from UserLogin import UserLogin
 from forms import LoginForm, RegisterForm
 from admin.admin import admin
@@ -193,7 +193,7 @@ def upload():
 
 if __name__ == "__main__":
     application.debug = True  
-    application.run(host='127.0.0.1')
+    application.run(host='0.0.0.0', host='127.0.0.1')
     # application.run(host='0.0.0.0', host='18.156.79.11', host='172.31.26.211' port=5000, port=127.0.0.1)
 
 
