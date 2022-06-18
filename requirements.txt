@@ -8,5 +8,5 @@ Jinja2==3.0.3
 MarkupSafe==2.0.1
 Werkzeug==2.0.3
 wincertstore==0.2
-flask-login
+Flask-Login==0.5.0
 
