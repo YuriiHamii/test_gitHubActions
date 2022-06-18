@@ -193,7 +193,7 @@ def upload():
 
 if __name__ == "__main__":
     # app.debug = True  
-    application.run()
+    application.run(host='localhost', port=8000, debug=True)
     
 
 
