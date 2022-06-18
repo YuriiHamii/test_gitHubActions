@@ -8,9 +8,11 @@ gunicorn==20.1.0
 itsdangerous==2.0.1
 Jinja2==2.11.3
 MarkupSafe==1.1.1
+SQLAlchemy==1.4.22
+sqlite3==3.36.0
 Werkzeug==2.0.2
 wincertstore==0.2
-SQLAlchemy==1.4.22
+
 
 
 
