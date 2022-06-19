@@ -11,9 +11,9 @@
 <!--    Создали именованный блок title, в именованном блоке происходит проверка-->
 {% block title -%}
 {% if title %}
-        <title>About Flask - {{title}}</title>
+        <title>SQL-Flask - {{title}}</title>
 {% else %}
-        <title>About Flask</title>
+        <title>About Flask - SQL - DB</title>
 {% endif %}
 {% endblock %}
 </head>
@@ -25,9 +25,17 @@
 
 <!--Список-->
 <ul class="mainmenu">
-        {% for m in menu -%}
-<li><a href="{{m.url}}">{{m.name}}</a></li>
-        {% endfor -%}
+
+        <!-- % for m in menu -% -->
+               <!-- m.url     - ERROR когда берем url, который записан в таблице mainmenu -->
+             <!--   /         - главная страница -->
+               <!-- /add_post - добавить пост, выходит ошибка при переходе с http://127.0.0.1:5000/post/2 --на-- http://127.0.0.1:5000/post/add_post   --PAGE NOT FOUND-- -->
+                <!--                                                                                                                    post - лишнее -->
+             <!--   /         - все, что идет перед слешем, сохраняется браузером, а /add_post просто добавляется -->
+           <!--     url_for() - функция решения проблем, но в таком случае срабатывает для всех записей таблицы    -->
+<li><a href="{{url_for('index')}}">Main page</a></li>        
+<li><a href="{{url_for('addPost')}}">Add of posts</a></li>
+        <!-- % endfor -% -->
 </ul>
         {% endblock mainmenu -%}
 <div class="clear"></div>
