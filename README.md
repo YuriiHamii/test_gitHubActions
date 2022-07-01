@@ -1,2 +1,2 @@
 # test_gitHubActions
-GitHub Actions
+SQL Flask --> GitHub --> Github Actions --> S3 --> EBS
