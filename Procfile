@@ -1,1 +1,1 @@
-web: gunicorn flsite:app
+web: gunicorn flsite:application
